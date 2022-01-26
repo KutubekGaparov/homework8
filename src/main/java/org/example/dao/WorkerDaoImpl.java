@@ -41,7 +41,7 @@ public class WorkerDaoImpl implements WorkerDao {
         List<Worker> workers = session.createQuery("from Worker where age > 20 and name like 'Aza'").getResultList();
         session.getTransaction().commit();
         session.close();
-        System.out.println("-----1------\n Айтылган Жумушчулар алынды: " + workers.size());
+        System.out.println("-----1------\n The mentioned workers were taken: " + workers.size());
         return workers;
     }
 
@@ -50,12 +50,12 @@ public class WorkerDaoImpl implements WorkerDao {
         Session session = HibernatiUtil.getSession().openSession();
         session.beginTransaction();
 
-        String SQL = "update Worker set  age=18 where name = 'Aza'";
-        int kutubek = session.createQuery(SQL).executeUpdate();
+
+        int s= session.createQuery("update Worker set  age=18 where name = 'Aza'").executeUpdate();
 
         session.getTransaction().commit();
         session.close();
-        System.out.println("---------2---------\nUpdate Аткарылды: "+kutubek);
+        System.out.println("---------2---------"+s+"\nUpdate Done: ");
     }
 
     @Override
@@ -68,6 +68,22 @@ public class WorkerDaoImpl implements WorkerDao {
 
         session.getTransaction().commit();
         session.close();
-        System.out.println("---------3---------\nАйтылган Жумушчулар очурулду");
+        System.out.println("---------3---------\nThe said Workers were removed");
+    }
+
+    @Override
+    public void delateUsersTable() {
+        try {
+            Session session = HibernatiUtil.getSession().openSession();
+            session.beginTransaction();
+
+            session.createQuery("delete Worker ").executeUpdate();
+
+            session.getTransaction().commit();
+            session.close();
+            System.out.println("delate done");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }

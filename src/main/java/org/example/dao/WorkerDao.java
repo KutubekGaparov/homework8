@@ -15,4 +15,6 @@ public interface WorkerDao {
     void updateUser();
 
     void delateWorkerByName();
+
+    void delateUsersTable();
 }
